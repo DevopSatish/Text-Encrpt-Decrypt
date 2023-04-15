@@ -35,4 +35,4 @@ To use the application, simply enter the message you want to encrypt/decrypt and
 
 ## Credits
 
-This project was created by [Satish V].
+This project is created by Satish V.
