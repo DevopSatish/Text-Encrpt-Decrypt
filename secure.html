@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Caesar Cipher Encryption/Decryption</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+      }
+      header {
+        background-color: #1abc9c;
+        color: white;
+        text-align: center;
+        padding: 20px;
+
+      }
+      h1 {
+        font-size: 36px;
+
+      }
+      main {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 4rem;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      }
+       p {
+        margin: 10px 0 20px 0;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="text"], textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: none;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+      button {
+        background-color: #1abc9c;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background-color: #148f77;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Caesar Cipher Encryption/Decryption</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Encryption</h2>
+        <form>
+          <label for="encrypt-text">Enter text to encrypt:</label>
+          <input type="text" id="encrypt-text" name="encrypt-text">
+          <label for="shift">Enter shift amount:</label>
+          <input type="number" id="shift" name="shift" min="1" max="25" value="3">
+          <button type="button" onclick="encrypt()">Encrypt</button>
+        </form>
+        <p>Encrypted text: <span id="encrypted-text"></span></p>
+      </section>
+      <section>
+        <h2>Decryption</h2>
+        <form>
+          <label for="decrypt-text">Enter text to decrypt:</label>
+          <input type="text" id="decrypt-text" name="decrypt-text">
+          <label for="shift">Enter shift amount:</label>
+          <input type="number" id="shift" name="shift" min="1" max="25" value="3">
+          <button type="button" onclick="decrypt()">Decrypt</button>
+        </form>
+        <p>Decrypted text: <span id="decrypted-text"></span></p>
+      </section>
+    </main>
+    <script>
+      function encrypt() {
+        const shift = parseInt(document.getElementById("shift").value);
+        const sourceText = document.getElementById("encrypt-text").value;
+        const encryptKey = "abcdefghijklmnopqrstuvwxyz";
+        let encryptedString = "";
+
+        for (let i = 0; i < sourceText.length; i++) {
+          let x = sourceText[i];
+          if (!x.match(/[a-z]/i)) {
+            encryptedString += x;
+          } else {
+            const encryptPosition = (encryptKey.indexOf(x.toLowerCase()) + shift) % 26;
+            if (x === x.toUpperCase()) {
+              encryptedString += encryptKey[encryptPosition].toUpperCase();
+            } else {
+              encryptedString += encryptKey[encryptPosition];
+            }
+          }
+        }
+
+        document.getElementById("encrypted-text").textContent = encryptedString;
+      }
+
+      function decrypt() {
+        const shift = parseInt(document.getElementById("shift").value);
+        const sourceText = document.getElementById("decrypt-text").value;
+        const encryptKey = "abcdefghijklmnopqrstuvwxyz";
+        let decryptedString = "";
+
+        for (let i = 0; i < sourceText.length; i++) {
+          let x = sourceText[i];
+          if (!x.match(/[a-z]/i)) {
+            decryptedString += x;
+          } else {
+            const encryptPosition = (encryptKey.indexOf(x.toLowerCase()) - shift + 26) % 26;
+            if (x === x.toUpperCase()) {
+              decryptedString += encryptKey[encryptPosition].toUpperCase();
+            } else {
+              decryptedString += encryptKey[encryptPosition];
+            }
+          }
+        }
+
+        document.getElementById("decrypted-text").textContent = decryptedString;
+      }
+    </script>
+  </body>
+</html>
